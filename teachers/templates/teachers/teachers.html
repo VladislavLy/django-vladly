@@ -1,0 +1,28 @@
+{% extends "students/wrapper.html" %}
+
+{% block title %} 
+{{Title}}
+{% endblock %}
+
+{% block content %}
+    <i><h1>{{Title}}</h1></i>
+    
+    {% if object_list %}
+        {% for el in object_list %}
+            <div>
+                <li><h4>Name: {{ el.name }}</h4></li>
+                <h4>Surname: {{ el.surname }}</h4>
+                <h4>Age: {{ el.age }}</h4>
+                <br>
+            </div>
+        {% endfor %}
+    {% else %}
+    <div>
+        <li><h4>Name : {{ object.name }}</h4></li>
+        <h4>Surname: {{ object.surname }}</h4>
+        <h4>Age: {{ el.age }}</h4>
+        <br>
+    </div>
+    {% endif %}
+
+{% endblock %}
