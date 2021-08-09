@@ -1,0 +1,26 @@
+{% extends "students/wrapper.html" %}
+
+{% block title %} 
+{{Title}}
+{% endblock %}
+
+{% block content %}
+    <i><h1>{{Title}}</h1></i>
+    
+    {% if object_list %}
+        {% for el in object_list %}
+            <div>
+                <li><h4>Subject: {{ el.subject }}</h4></li>
+                <h4>Ratio of students: {{ el.ratio_of_students }}</h4>
+                <br>
+            </div>
+        {% endfor %}
+    {% else %}
+    <div>
+        <li><h4>Subject : {{ object.subject }}</h4></li>
+        <h4>Ratio of students: {{ object.ratio_of_students }}</h4>
+        <br>
+    </div>
+    {% endif %}
+
+{% endblock %}
