@@ -1,0 +1,3 @@
+[flake8]
+exclude = requirements.txt, README.md, .git, .gitignore,
+max-line-length = 130
