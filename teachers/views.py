@@ -1,10 +1,12 @@
-from django.shortcuts import HttpResponse, render
+from django.shortcuts import HttpResponse, redirect, render
 
 from faker import Faker
 
 from .models import Teacher
 
 import random # noqa
+
+from .forms import TeacherForm
 
 
 def generate_teachers(request, number=10):
@@ -49,10 +51,32 @@ def list_of_teachers(request):
             teachers_list = Teacher.objects.all().filter(**output_dict)
             return render(request, 'teachers/teachers.html', {"Title": 'Teachers', "object_list": teachers_list})
 
-    teachers_list = Teacher.objects.all().order_by('name')
+    teachers_list = Teacher.objects.all().order_by('-id')
     return render(request, 'teachers/teachers.html', {"Title": 'Teachers', "object_list": teachers_list})
 
 
 def list_of_teachers_param(request, **kwargs):
     teachers_list = Teacher.objects.all().filter(**kwargs)
     return render(request, 'teachers/teachers.html', {"Title": 'Teachers', "object_list": teachers_list})
+
+
+def create_teacher(request):
+    error = ''
+
+    if request.method == 'GET':
+        our_form = TeacherForm()
+        context = {
+            'form': our_form,
+            'error': error,
+            'Title': 'Teacher',
+        }
+
+    elif request.method == 'POST':
+        our_form = TeacherForm(request.POST)
+        if our_form.is_valid():
+            our_form.save()
+            return redirect('list_of_teachers')
+        else:
+            error = "Form isn't valid!"
+
+    return render(request, 'teachers/create_teacher.html', context)
