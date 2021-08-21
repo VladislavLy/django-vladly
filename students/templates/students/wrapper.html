@@ -6,10 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <style>
-        div {background-color: SandyBrown;;}
+        div {background-color: SandyBrown; border-radius: 5px; margin: 5px; }
+        button{background: #0493d4; color: #fff; border: none; border-radius: 5px; font-size: 15px; }
+        .green { background: #7aec2d; }
+        .red { background: #f50925; }
+        .blue { background: #008EB0; }
+        .block_navigation { display: flex; justify-content: space-around; padding: 20px 10px; background: rgba(255, 176, 147, 0.609); border-radius: 10px; }
     </style>
 </head>
 <body style="background-color: chocolate">
+    <ul class="block_navigation">
+        <ol><b><em><a href="{% url 'index' %}"> Home ✔</a></em></b></ol>
+        <ol><b><em><a href="{% url 'create_teacher' %}"> Create teacher ✔</a></em></b></ol>
+        <ol><b><em><a href="{% url 'create_student' %}"> Create student ✔</a></em></b></ol>
+        <ol><b><em><a href="{% url 'create_group' %}"> Create group ✔</a></em></b></ol>
+        <ol><b><em><a href="{% url 'list_of_teachers' %}"> Teachers ✔</a></em></b></ol>
+        <ol><b><em><a href="{% url 'list_of_students' %}"> Students ✔</a></em></b></ol>
+        <ol><b><em><a href="{% url 'list_of_groups' %}"> Groups ✔</a></em></b></ol>
+    </ul>
     <hr>
     {% block content %}
     {% endblock %}

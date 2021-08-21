@@ -9,5 +9,6 @@ urlpatterns = [
     re_path(r'^list-of-teachers/(?P<name>\D+)/(?P<age>\d+)$', views.list_of_teachers_param, name='list_of_teachers_param'),
     re_path(r'^list-of-teachers/(?P<name>\D+)/(?P<surname>\D+)$', views.list_of_teachers_param, name='list_of_teachers_param'),
     re_path(r'^list-of-teachers/(?P<name>\D+)|(?P<age>\d+)$', views.list_of_teachers_param, name='list_of_teachers_param'),
+    path('create-teacher/', views.create_teacher, name='create_teacher'),
 
 ]
