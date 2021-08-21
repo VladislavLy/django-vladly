@@ -9,11 +9,9 @@
     <div>
         <form method="POST", action="{% url 'create_teacher' %}" >
             {% csrf_token %}
-
-            {{ form.name }} <br>
-            {{ form.surname}} <br>
-            {{ form.age }} <br>
-
+            {{ form.name|safe }} <br>
+            {{ form.surname|safe }} <br>
+            {{ form.age|safe }} <br>
             <button type="submit" style="height: 20px; width: 70px" > Add </button>
             <span>{{ error }}</span>
         </form>

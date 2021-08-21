@@ -12,6 +12,8 @@
             <div>
                 <li><h4>Subject: {{ el.subject }}</h4></li>
                 <h4>Ratio of students: {{ el.ratio_of_students }}</h4>
+                <a href="{% url 'edit_group' group_id=el.id %}"><button type="submit" style="height: 20px; width: 70px" class="green"> Edit </button></a>
+                <a href="{% url 'delete_group' group_id=el.id %}"><button type="submit" style="height: 20px; width: 70px" class="red"> Delete </button></a>
                 <br>
             </div>
         {% endfor %}

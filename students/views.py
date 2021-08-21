@@ -121,3 +121,23 @@ def create_student(request):
             error = "Form isn't valid!"
 
     return render(request, 'students/create_student.html', context)
+
+
+def edit_student(request, student_id):
+    if request.method == 'GET':
+        student = Student.objects.filter(id=student_id).first()
+        form = StudentForm(instance=student)
+
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            Student.objects.update_or_create(id=student_id, defaults=form.cleaned_data)
+            return redirect('list_of_students')
+
+    return render(request, 'students/edit_student.html', {"form": form, 'student_id': student_id, 'Title': 'Student'})
+
+
+def delete_student(request, student_id):
+    student = Student.objects.filter(id=student_id)
+    student.delete()
+    return redirect('list_of_students')

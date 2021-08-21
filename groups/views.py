@@ -66,3 +66,23 @@ def create_group(request):
             return redirect('list_of_groups')
 
     return render(request, 'groups/create_group.html', {"Title": 'Group', "form": our_form})
+
+
+def edit_group(request, group_id):
+    if request.method == 'GET':
+        group = Group.objects.filter(id=group_id).first()
+        form = GroupForm(group.__dict__)
+
+    if request.method == 'POST':
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            Group.objects.update_or_create(id=group_id, defaults=form.cleaned_data)
+            return redirect('list_of_groups')
+
+    return render(request, 'groups/edit_group.html', {"form": form, 'group_id': group_id, 'Title': 'Group'})
+
+
+def delete_group(request, group_id):
+    teacher = Group.objects.filter(id=group_id)
+    teacher.delete()
+    return redirect('list_of_groups')

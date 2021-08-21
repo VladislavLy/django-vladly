@@ -80,3 +80,23 @@ def create_teacher(request):
             error = "Form isn't valid!"
 
     return render(request, 'teachers/create_teacher.html', context)
+
+
+def edit_teacher(request, teacher_id):
+    if request.method == 'GET':
+        teacher = Teacher.objects.filter(id=teacher_id).first()
+        form = TeacherForm(instance=teacher)
+
+    if request.method == 'POST':
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            Teacher.objects.update_or_create(id=teacher_id, defaults=form.cleaned_data)
+            return redirect('list_of_teachers')
+
+    return render(request, 'teachers/edit_teacher.html', {"form": form, 'teacher_id': teacher_id, 'Title': 'Teacher'})
+
+
+def delete_teacher(request, teacher_id):
+    teacher = Teacher.objects.filter(id=teacher_id)
+    teacher.delete()
+    return redirect('list_of_teachers')
