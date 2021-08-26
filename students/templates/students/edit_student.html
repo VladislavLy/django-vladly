@@ -5,15 +5,14 @@
 {% endblock %}
 
 {% block content %}
-    <i><h1>Create {{Title}} </h1></i>
+    <i><h1>Edit {{Title}} </h1></i>
     <div>
-        <form method="POST", action="{% url 'create_student' %}" >
+        <form method="POST", action="{% url 'edit_student' student_id %}" >
             {% csrf_token %}
             {{ form.name|safe }} <br>
             {{ form.surname|safe }} <br>
             {{ form.age|safe }} <br>
-            <button type="submit" style="height: 20px; width: 70px" > Add </button>
-            <span>{{ error }}</span>
+            <button type="submit" style="height: 20px; width: 70px" > Save </button>
         </form>
     </div>
 {% endblock %}

@@ -6,4 +6,4 @@ class Group(models.Model):
     ratio_of_students = models.IntegerField(default=12)
 
     def __str__(self):
-        return '%s, %s, %s' % (self.id, self.subject, self.ratio_of_students)
+        return f'{self.subject} {self.ratio_of_students}'

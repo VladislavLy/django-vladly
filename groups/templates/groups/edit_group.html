@@ -1,0 +1,17 @@
+{% extends "students/wrapper.html" %}
+
+{% block title %} 
+{{Title}}
+{% endblock %}
+
+{% block content %}
+    <i><h1>Edit {{Title}} </h1></i>
+    <div>
+        <form method="POST", action="{% url 'edit_group' group_id %}" >
+            {% csrf_token %}
+            {{ form.subject|safe }} <br>
+            {{ form.ratio_of_students|safe }} <br>
+            <button type="submit" style="height: 20px; width: 70px" > Save </button>
+        </form>
+    </div>
+{% endblock %}
