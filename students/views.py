@@ -103,8 +103,14 @@ def list_of_students(request):
 
 def create_student(request):
     error = ''
-
-    if request.method == 'GET':
+    if request.method == 'POST' and not request.POST.get('error'):
+        our_form = StudentForm(request.POST)
+        if our_form.is_valid():
+            our_form.save()
+            return redirect('list_of_students')
+        else:
+            error = "Form isn't valid!"
+    else:
         our_form = StudentForm()
         context = {
             'form': our_form,
@@ -112,27 +118,18 @@ def create_student(request):
             'Title': 'Student',
         }
 
-    elif request.method == 'POST':
-        our_form = StudentForm(request.POST)
-        if our_form.is_valid():
-            our_form.save()
-            return redirect('list_of_students')
-        else:
-            error = "Form isn't valid!"
-
     return render(request, 'students/create_student.html', context)
 
 
 def edit_student(request, student_id):
-    if request.method == 'GET':
-        student = Student.objects.filter(id=student_id).first()
-        form = StudentForm(instance=student)
-
-    if request.method == 'POST':
+    if request.method == 'POST' and not request.POST.get('error'):
         form = StudentForm(request.POST)
         if form.is_valid():
             Student.objects.update_or_create(id=student_id, defaults=form.cleaned_data)
             return redirect('list_of_students')
+    else:
+        student = Student.objects.filter(id=student_id).first()
+        form = StudentForm(instance=student)
 
     return render(request, 'students/edit_student.html', {"form": form, 'student_id': student_id, 'Title': 'Student'})
 

@@ -13,6 +13,7 @@
                 <li><h4>Name: {{ el.name }}</h4></li>
                 <h4>Surname: {{ el.surname }}</h4>
                 <h4>Age: {{ el.age }}</h4>
+                <h4>Phone: {{ el.phone }}</h4>
                 <a href="{% url 'edit_student' student_id=el.id %}"><button type="submit" style="height: 20px; width: 70px" class="green"> Edit </button></a>
                 <a href="{% url 'delete_student' student_id=el.id %}"><button type="submit" style="height: 20px; width: 70px" class="red"> Delete </button></a>
                 <br>
@@ -23,6 +24,7 @@
         <li><h4>Name: {{ object.name }}</h4></li>
         <h4>Surname: {{ object.surname }}</h4>
         <h4>Age: {{ object.age }}</h4>
+        <h4>Phone: {{ object.phone }}</h4>
         <br>
     </div>
     {% endif %}
