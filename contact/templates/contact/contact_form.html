@@ -1,0 +1,22 @@
+{% extends "students/wrapper.html" %}
+
+{% block title %} 
+{{Title}}
+{% endblock %}
+
+{% block content %}
+    <i><h1> Contact us </h1></i>
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    <div>
+        <form method="POST", action="{% url 'contact_us' %}" >
+            {% csrf_token %}
+
+            {{ form.title|safe }} <br>
+            {{ form.message|safe }} <br>
+            {{ form.email_from|safe }} <br>
+            <button type="submit" style="height: 20px; width: 70px" > Send </button>
+        </form>
+    </div>
+{% endblock %}

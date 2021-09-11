@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'students',
     'teachers',
     'groups',
+    'contact',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,30 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Celery
+from celery.schedules import crontab # noqa
+
+CELERY_TIMEZONE = 'UTC'
+CELERY_TASK_TRACK_STARTED = True
+CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
+# Crontab and Beat
+CELERY_BEAT_SCHEDULE = {
+    'beat_logs': {
+        'task': 'students.tasks.delete_logs',
+        'schedule': crontab(minute=0, hour=8),
+    }
+}
+
+# Settings for contact-email
+from dotenv import load_dotenv # noqa
+import os # noqa
+
+load_dotenv()
+
+EMAIL_HOST = 'smtp.gmail.com'
+ADMIN_EMAIL = [os.getenv('ADMIN_EMAIL_1'), os.getenv('ADMIN_EMAIL_2')]
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
