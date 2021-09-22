@@ -110,6 +110,13 @@ def create_student(request):
             return redirect('list_of_students')
         else:
             error = "Form isn't valid!"
+    elif request.method == 'POST' and request.POST.get('error'):
+        our_form = StudentForm(request.POST)
+        context = {
+            'form': our_form,
+            'error': error,
+            'Title': 'Student',
+        }
     else:
         our_form = StudentForm()
         context = {
