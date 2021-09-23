@@ -5,15 +5,16 @@
 {% endblock %}
 
 {% block content %}
-    <i><h1>{{Title}}</h1></i>
+    <i><h1 class="tab">{{Title}}</h1></i>
     
     {% if object_list %}
         {% for el in object_list %}
             <div>
-                <li><h4>Subject: {{ el.subject }}</h4></li>
-                <h4>Ratio of students: {{ el.ratio_of_students }}</h4>
-                <a href="{% url 'edit_group' group_id=el.id %}"><button type="submit" style="height: 20px; width: 70px" class="green"> Edit </button></a>
-                <a href="{% url 'delete_group' group_id=el.id %}"><button type="submit" style="height: 20px; width: 70px" class="red"> Delete </button></a>
+                <li><h4 class="tab">Subject: {{ el.subject }}</h4></li>
+                <h4 class="tab">Ratio of students: {{ el.ratio_of_students }}</h4>
+                <h4 class="tab">Teacher of the group: {{ el.main_teacher.name }} {{ el.main_teacher.surname }}</h4>
+                <a href="{% url 'edit_group' group_id=el.id %}" class="tab"><button type="submit" style="height: 30px; width: 70px" class="green"> Edit </button></a>
+                <a href="{% url 'delete_group' group_id=el.id %}"><button type="submit" style="height: 30px; width: 70px" class="red"> Delete </button></a>
                 <br>
             </div>
         {% endfor %}

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'teachers',
     'groups',
     'contact',
+    'currency',
 ]
 
 MIDDLEWARE = [
@@ -141,7 +142,11 @@ CELERY_BEAT_SCHEDULE = {
     'beat_logs': {
         'task': 'students.tasks.delete_logs',
         'schedule': crontab(minute=0, hour=8),
-    }
+    },
+    'currency': {
+        'task': 'currency.tasks.get_currency_rate',
+        'schedule': crontab(minute=0, hour=7),
+    },
 }
 
 # Settings for contact-email

@@ -5,18 +5,19 @@
 {% endblock %}
 
 {% block content %}
-    <i><h1>Edit {{Title}} </h1></i>
+    <i><h1 align="center">Edit {{Title}} </h1></i>
     {% for message in messages %}
     {{ message }}
     {% endfor %}
-    <div>
-        <form method="POST", action="{% url 'edit_student' student_id %}" >
+    <div class="rounded-circle">
+        <form method="POST", action="{% url 'edit_student' student_id %}" align="center">
             {% csrf_token %}
             {{ form.name|safe }} <br>
             {{ form.surname|safe }} <br>
             {{ form.age|safe }} <br>
             {{ form.phone|safe }} <br>
-            <button type="submit" style="height: 20px; width: 70px" > Save </button>
+            <!-- {{ form.in_the_group|safe }} <br> -->
+            <button type="submit" style="height: 30px; width: 70px" > Save </button>
         </form>
     </div>
 {% endblock %}

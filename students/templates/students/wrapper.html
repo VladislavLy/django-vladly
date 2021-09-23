@@ -6,15 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <style>
-        div {background-color: SandyBrown; border-radius: 5px; margin: 5px; }
+        div {background-color: SandyBrown; border-radius: 75px; margin: 5px; }
         button{background: #0493d4; color: #fff; border: none; border-radius: 5px; font-size: 15px; }
         .green { background: #0ddd1f; }
         .red { background: #f80723; }
         .blue { background: #008EB0; }
         .block_navigation { display: flex; justify-content: space-around; padding: 20px 10px; background: rgba(255, 176, 147, 0.609); border-radius: 10px; }
+        h1{
+            color: #7330c0f5;
+        }
+        h4{
+            color: #0d0225f6;
+        }
+        table {
+                width: 60%;
+                background: white;
+                color: #8504db;
+                border-spacing: 2px;
+                border-radius: 2px;
+            }
+            td {
+                border-radius: 2px;
+                background: SandyBrown;
+                padding: 5px;
+            }
+            th {
+                border-radius: 2px;
+                background: rgb(252, 217, 18);
+                padding: 5px;
+            }
+            .tab { 
+                margin-left: 150px; 
+            }
+            #footer {
+                position: fixed;
+                right: 0; 
+                bottom: 0;
+                color: rgba(245, 245, 245, 0.836);
+                width: 15%;
+                padding: 10px;
+            }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body style="background-color: chocolate">
+    <nav class="navbar navbar-default" >
     <ul class="block_navigation">
         <ol><b><em><a href="{% url 'index' %}"> Home ✔</a></em></b></ol>
         <ol><b><em><a href="{% url 'create_teacher' %}"> Create teacher ✔</a></em></b></ol>
@@ -24,9 +60,18 @@
         <ol><b><em><a href="{% url 'list_of_students' %}"> Students ✔</a></em></b></ol>
         <ol><b><em><a href="{% url 'list_of_groups' %}"> Groups ✔</a></em></b></ol>
         <ol><b><em><a href="{% url 'contact_us' %}"> Contact us ✔</a></em></b></ol>
+        <ol><b><em><a href="{% url 'currency_rate_list' %}"> Currency rate ✔</a></em></b></ol>
     </ul>
-    <hr>
+    </nav>
     {% block content %}
+    <div class="rounded-circle">
+        <i><h1 align="center"> Nice to see you! </h1></i>
+    </div>
     {% endblock %}
 </body>
+<footer>
+    <div id="footer">
+        <small>&copy; Django project by VladLy</small>
+    </div>
+</footer>
 </html>

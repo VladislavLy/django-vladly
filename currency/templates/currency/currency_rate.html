@@ -1,0 +1,35 @@
+{% extends "students/wrapper.html" %}
+
+{% block title %}
+{{Title}}
+{% endblock %}
+
+{% block content %}
+<div class="rounded-circle">
+    <i><h1 align="center">{{Title}}</h1></i>
+</div>  
+    {% if object_list %}
+        {% for el in object_list %}
+            <table border="1" bordercolor='Goldenrod' align="center">
+                <thead>
+                    <tr align="center">
+                        <th><i><b> Date </b></i></th>
+                        <th><i><b> Currency </b></i></th>
+                        <th><i><b> Site </b></i></th>
+                        <th><i><b> Buy </b></i></th>
+                        <th><i><b> Sell </b></i></th>
+                    </tr>
+                </thead>
+                <body>
+                    <tr align="center">
+                        <td><h4>{{ el.created_at }}</h4></td>
+                        <td><h4>{{ el.currency }}</h4></td>
+                        <td><h4>{{ el.source }}</h4></td>
+                        <td><h4>{{ el.buy_price }}</h4></td>
+                        <td><h4>{{ el.sell_price }}</h4></td>
+                    </tr>
+                </body>
+            </table>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
