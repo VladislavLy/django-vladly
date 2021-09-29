@@ -2,6 +2,8 @@ import random
 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.views import View
+from django.views.generic import TemplateView # noqa
 
 from faker import Faker
 
@@ -9,8 +11,8 @@ from .forms import StudentForm
 from .models import Student
 
 
-def index(request):
-    return render(request, 'students/wrapper.html')
+# def index(request):
+#     return render(request, 'students/wrapper.html')
 
 
 def generate_student(request):
@@ -145,3 +147,13 @@ def delete_student(request, student_id):
     student = Student.objects.filter(id=student_id)
     student.delete()
     return redirect('list_of_students')
+
+
+# class IndexView(TemplateView):
+#     template_name = "students/wrapper.html"
+
+
+class IndexView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'students/wrapper.html')
+
