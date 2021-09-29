@@ -29,4 +29,4 @@ def contact_us(request):
     else:
         form = ContactForm()
 
-    return render(request, 'contact/contact_form.html', {'form': form, 'Title': 'Student'})
+    return render(request, 'contact/contact_form.html', {'form': form, 'Title': 'Contact'})

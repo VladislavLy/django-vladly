@@ -6,9 +6,10 @@ class Student(models.Model):
     surname = models.CharField(max_length=100)
     age = models.IntegerField(default=18)
     phone = models.CharField(null=True, blank=True, max_length=15)
+    in_the_group = models.ForeignKey('groups.Group', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return f'{self.name} {self.surname} {self.age} {self.phone}'
+        return f'{self.name} {self.surname}'
 
 
 class Logger(models.Model):

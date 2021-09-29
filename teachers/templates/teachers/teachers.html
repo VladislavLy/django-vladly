@@ -5,16 +5,17 @@
 {% endblock %}
 
 {% block content %}
-    <i><h1>{{Title}}</h1></i>
+    <i><h1 class="tab">{{Title}}</h1></i>
     
     {% if object_list %}
         {% for el in object_list %}
             <div>
-                <li><h4>Name: {{ el.name|safe }}</h4></li>
-                <h4>Surname: {{ el.surname|safe }}</h4>
-                <h4>Age: {{ el.age|safe }}</h4>
-                <a href="{% url 'edit_teacher' teacher_id=el.id %}"><button type="submit" style="height: 20px; width: 70px" class="green"> Edit </button></a>
-                <a href="{% url 'delete_teacher' teacher_id=el.id %}"><button type="submit" style="height: 20px; width: 70px" class="red"> Delete </button></a>
+                <li><h4 class="tab">Name: {{ el.name|safe }}</h4></li>
+                <h4 class="tab">Surname: {{ el.surname|safe }}</h4>
+                <h4 class="tab">Age: {{ el.age|safe }}</h4>
+                <h4 class="tab">Subject: {{ el.subject_class|safe }}</h4>
+                <a href="{% url 'edit_teacher' teacher_id=el.id %}" class="tab"><button type="submit" style="height: 30px; width: 70px" class="green"> Edit </button></a>
+                <a href="{% url 'delete_teacher' teacher_id=el.id %}"><button type="submit" style="height: 30px; width: 70px" class="red"> Delete </button></a>
                 <br>
             </div>
         {% endfor %}

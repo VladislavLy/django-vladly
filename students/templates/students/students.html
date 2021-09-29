@@ -5,17 +5,18 @@
 {% endblock %}
 
 {% block content %}
-    <i><h1>{{Title}}</h1></i>
+    <i><h1 class="tab">{{Title}}</h1></i>
     
     {% if object_list %}
         {% for el in object_list %}
             <div>
-                <li><h4>Name: {{ el.name }}</h4></li>
-                <h4>Surname: {{ el.surname }}</h4>
-                <h4>Age: {{ el.age }}</h4>
-                <h4>Phone: {{ el.phone }}</h4>
-                <a href="{% url 'edit_student' student_id=el.id %}"><button type="submit" style="height: 20px; width: 70px" class="green"> Edit </button></a>
-                <a href="{% url 'delete_student' student_id=el.id %}"><button type="submit" style="height: 20px; width: 70px" class="red"> Delete </button></a>
+                <li><h4 class="tab">Name: {{ el.name }}</h4></li>
+                <h4 class="tab">Surname: {{ el.surname }}</h4>
+                <h4 class="tab">Age: {{ el.age }}</h4>
+                <h4 class="tab">Phone: {{ el.phone }}</h4>
+                <h4 class="tab">In the group: {{ el.in_the_group.subject }}</h4>
+                <a href="{% url 'edit_student' student_id=el.id %}" class="tab"><button type="submit" style="height: 30px; width: 70px" class="green"> Edit </button></a>
+                <a href="{% url 'delete_student' student_id=el.id %}"><button type="submit" style="height: 30px; width: 70px" class="red"> Delete </button></a>
                 <br>
             </div>
         {% endfor %}
@@ -25,8 +26,8 @@
         <h4>Surname: {{ object.surname }}</h4>
         <h4>Age: {{ object.age }}</h4>
         <h4>Phone: {{ object.phone }}</h4>
+        <h4>In the group: {{ object.in_the_group }}</h4>
         <br>
     </div>
     {% endif %}
-
 {% endblock %}

@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('subject', models.CharField(max_length=200)),
-                ('ratio_of_students', models.IntegerField(default=12)),
+                ('ratio_of_students', models.IntegerField(default=0)),
             ],
         ),
     ]
