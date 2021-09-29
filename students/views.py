@@ -156,4 +156,3 @@ def delete_student(request, student_id):
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'students/wrapper.html')
-
