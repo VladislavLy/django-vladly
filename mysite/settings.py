@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'groups',
     'contact',
     'currency',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [

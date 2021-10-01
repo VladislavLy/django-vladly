@@ -36,12 +36,12 @@ class Command(BaseCommand):
             teach.save()
 
             gr = Group(subject=teach.subject_class,
-                       ratio_of_students=fake.random.randint(1, 8),
+                       ratio_of_students=0,
                        main_teacher=teach,
                        )
             gr.save()
 
-            for i in range(gr.ratio_of_students):
+            for i in range(fake.random.randint(1, 8)):
                 st = Student(name=fake.first_name(),
                              surname=fake.last_name(),
                              age=fake.random_int(18, 40),
