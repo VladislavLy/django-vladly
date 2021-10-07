@@ -14,8 +14,8 @@
                 <h4 class="tab">Surname: {{ el.surname|safe }}</h4>
                 <h4 class="tab">Age: {{ el.age|safe }}</h4>
                 <h4 class="tab">Subject: {{ el.subject_class|safe }}</h4>
-                <a href="{% url 'edit_teacher' teacher_id=el.id %}" class="tab"><button type="submit" style="height: 30px; width: 70px" class="green"> Edit </button></a>
-                <a href="{% url 'delete_teacher' teacher_id=el.id %}"><button type="submit" style="height: 30px; width: 70px" class="red"> Delete </button></a>
+                <a href="{% url 'edit_teacher' el.id %}" class="tab"><button type="submit" style="height: 30px; width: 70px" class="green"> Edit </button></a>
+                <a href="{% url 'delete_teacher' el.id %}"><button type="submit" style="height: 30px; width: 70px" class="red"> Delete </button></a>
                 <br>
             </div>
         {% endfor %}
@@ -27,5 +27,6 @@
         <br>
     </div>
     {% endif %}
-
+    <hr align="center" width="90%" size="50" color="#dddddd" />
+    {% include "students/pagination.html" %}
 {% endblock %}

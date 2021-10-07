@@ -24,3 +24,6 @@ urlpatterns = [
     path('', include('contact.urls')),
     path('', include('currency.urls')),
 ]
+
+handler404 = 'students.views.handler404'
+handler500 = 'students.views.handler500'

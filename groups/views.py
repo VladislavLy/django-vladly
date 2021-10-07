@@ -1,5 +1,6 @@
 from random import randrange
 
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
@@ -28,6 +29,11 @@ def groups_db(request, group_number=10):
 
 
 def list_of_groups(request):
+    group_list = Group.objects.all().order_by('-id')
+    paginator = Paginator(group_list, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     if request.method == 'GET':
         if request.GET.get('subject', '') or request.GET.get('ratio_of_students', ''):
             ratio_of_students = request.GET.get('ratio_of_students', None)
@@ -41,7 +47,7 @@ def list_of_groups(request):
             except Exception:
                 return HttpResponse(f'<h3>{ratio_of_students} is not an integer!</h3>')
 
-            param_dict = {'ratio_of_students': ratio_of_students, 'subject': subject, }
+            param_dict = {'ratio_of_students': ratio_of_students, 'subject': subject}
             output_dict = {}
 
             for key, value in param_dict.items():
@@ -52,7 +58,7 @@ def list_of_groups(request):
             return render(request, 'groups/groups.html', {"Title": 'Groups', "object_list": groups_list})
 
     groups_list = Group.objects.all().order_by('-id')
-    return render(request, 'groups/groups.html', {"Title": 'Groups', "object_list": groups_list})
+    return render(request, 'groups/groups.html', {"Title": 'Groups', "object_list": groups_list, 'page_obj': page_obj})
 
 
 def create_group(request):
