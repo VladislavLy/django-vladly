@@ -15,19 +15,23 @@
                 <h4 class="tab">Age: {{ el.age }}</h4>
                 <h4 class="tab">Phone: {{ el.phone }}</h4>
                 <h4 class="tab">In the group: {{ el.in_the_group.subject }}</h4>
-                <a href="{% url 'edit_student' student_id=el.id %}" class="tab"><button type="submit" style="height: 30px; width: 70px" class="green"> Edit </button></a>
-                <a href="{% url 'delete_student' student_id=el.id %}"><button type="submit" style="height: 30px; width: 70px" class="red"> Delete </button></a>
+                <a href="{% url 'edit_student' el.id %}" class="tab"><button type="submit" style="height: 30px; width: 70px" class="green"> Edit </button></a>
+                <a href="{% url 'delete_student' el.id %}"><button type="submit" style="height: 30px; width: 70px" class="red"> Delete </button></a>
                 <br>
             </div>
         {% endfor %}
     {% else %}
     <div>
-        <li><h4>Name: {{ object.name }}</h4></li>
-        <h4>Surname: {{ object.surname }}</h4>
-        <h4>Age: {{ object.age }}</h4>
-        <h4>Phone: {{ object.phone }}</h4>
-        <h4>In the group: {{ object.in_the_group }}</h4>
+        <li><h4 class="tab">Name: {{ object.name }}</h4></li>
+        <h4 class="tab">Surname: {{ object.surname }}</h4>
+        <h4 class="tab">Age: {{ object.age }}</h4>
+        <h4 class="tab">Phone: {{ object.phone }}</h4>
+        <h4 class="tab">In the group: {{ object.in_the_group }}</h4>
+        <a href="{% url 'edit_student' object.id %}" class="tab"><button type="submit" style="height: 30px; width: 70px" class="green"> Edit </button></a>
+        <a href="{% url 'delete_student' object.id %}"><button type="submit" style="height: 30px; width: 70px" class="red"> Delete </button></a>
         <br>
     </div>
     {% endif %}
+    <hr align="center" width="90%" size="50" color="#dddddd" />
+    {% include "students/pagination.html" %} 
 {% endblock %}

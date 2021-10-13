@@ -7,7 +7,7 @@
 {% block content %}
     <i><h1 align="center"> Contact us </h1></i>
     {% for message in messages %}
-    {{ message }}
+    <p align="center">{{ message }}</p>
     {% endfor %}
     <div class="rounded-circle">
         <form method="POST", action="{% url 'contact_us' %}" align="center">

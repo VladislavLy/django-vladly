@@ -1,4 +1,4 @@
-from django.db.models.signals import post_delete, pre_save
+from django.db.models.signals import post_delete, post_save, pre_save
 
 from groups.models import Group
 
@@ -6,39 +6,39 @@ from .models import Student
 
 
 def pre_save_signal_student(sender, **kwargs):
-    if not Student.objects.filter(id=kwargs['instance'].id):
-        if kwargs['instance'].in_the_group:
-            group_id_go_to = kwargs['instance'].in_the_group.id
-            group_go = Group.objects.filter(id=group_id_go_to).first()
-            group_go.ratio_of_students = group_go.ratio_of_students + 1
-            group_go.save()
-        else:
-            pass
+    # if not Student.objects.filter(id=kwargs['instance'].id):
+    #     if kwargs['instance'].in_the_group:
+    #         group_id_go_to = kwargs['instance'].in_the_group.id
+    #         group_go = Group.objects.filter(id=group_id_go_to).first()
+    #         group_go.ratio_of_students = group_go.ratio_of_students + 1
+    #         group_go.save()
+    #     else:
+    #         pass
 
-    elif Student.objects.get(id=kwargs['instance'].id).in_the_group is None:
-        try:
-            group_id_go_to = kwargs['instance'].in_the_group.id
-            group_go = Group.objects.filter(id=group_id_go_to).first()
-            group_go.ratio_of_students = group_go.ratio_of_students + 1
-            group_go.save()
-        except AttributeError:
-            pass
+    # elif Student.objects.get(id=kwargs['instance'].id).in_the_group is None:
+    #     try:
+    #         group_id_go_to = kwargs['instance'].in_the_group.id
+    #         group_go = Group.objects.filter(id=group_id_go_to).first()
+    #         group_go.ratio_of_students = group_go.ratio_of_students + 1
+    #         group_go.save()
+    #     except AttributeError:
+    #         pass
 
-    elif kwargs['instance'].in_the_group is None:
-        group_id_from_where = Student.objects.get(id=kwargs['instance'].id).in_the_group.id
-        group_from = Group.objects.filter(id=group_id_from_where).first()
-        group_from.ratio_of_students = group_from.ratio_of_students - 1
-        group_from.save()
+    # elif kwargs['instance'].in_the_group is None:
+    #     group_id_from_where = Student.objects.get(id=kwargs['instance'].id).in_the_group.id
+    #     group_from = Group.objects.filter(id=group_id_from_where).first()
+    #     group_from.ratio_of_students = group_from.ratio_of_students - 1
+    #     group_from.save()
 
-    else:
-        group_id_go_to = kwargs['instance'].in_the_group.id
-        group_id_from_where = Student.objects.get(id=kwargs['instance'].id).in_the_group.id
-        group_go = Group.objects.filter(id=group_id_go_to).first()
-        group_go.ratio_of_students = group_go.ratio_of_students + 1
-        group_go.save()
-        group_from = Group.objects.filter(id=group_id_from_where).first()
-        group_from.ratio_of_students = group_from.ratio_of_students - 1
-        group_from.save()
+    # else:
+    #     group_id_go_to = kwargs['instance'].in_the_group.id
+    #     group_id_from_where = Student.objects.get(id=kwargs['instance'].id).in_the_group.id
+    #     group_go = Group.objects.filter(id=group_id_go_to).first()
+    #     group_go.ratio_of_students = group_go.ratio_of_students + 1
+    #     group_go.save()
+    #     group_from = Group.objects.filter(id=group_id_from_where).first()
+    #     group_from.ratio_of_students = group_from.ratio_of_students - 1
+    #     group_from.save()
 
     name = kwargs['instance'].name
     surname = kwargs['instance'].surname
@@ -62,3 +62,14 @@ def post_delete_signal_student(sender, **kwargs):
 
 
 post_delete.connect(post_delete_signal_student, sender=Student)
+
+
+def post_save_signal_student(sender, **kwargs):
+    for i in Group.objects.all():
+        y = Group.objects.get(subject=i)
+        x = y.student_set.count()
+        y.ratio_of_students = x
+        y.save()
+
+
+post_save.connect(post_save_signal_student, sender=Student)

@@ -7,7 +7,7 @@
 {% block content %}
     <i><h1 align="center">Edit {{Title}} </h1></i>
     <div class="rounded-circle">
-        <form method="POST", action="{% url 'edit_teacher' teacher_id %}" align="center">
+        <form method="POST", action="{% url 'edit_teacher' object.pk %}" align="center">
             {% csrf_token %}
             {{ form.name|safe }} <br>
             {{ form.surname|safe }} <br>

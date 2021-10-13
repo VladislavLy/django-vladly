@@ -1,0 +1,25 @@
+<nav>
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-link" style="color: #7FFFD4; background: #7B68EE; border-radius: 7px;">&lt;</a>
+        </li>
+        {% endif %}
+        {% for p in paginator.page_range %}
+        {% if page_obj.number == p %}
+        <li class="page-item active" style=" padding: 1px 1px;">
+            <a href="?page={{ p }}" class="page-link" style="color: Peru; background: #7FFFD4; border-radius: 17px;"> {{ p }} </a>
+        </li>
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+        <li class="page-item">
+            <a href="?page={{ p }}" class="page-link" style="color: RosyBrown; background: #7B68EE; border-radius: 7px;"> {{ p }} </a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a href="?page={{ page_obj.next_page_number }}" class="page-link" style="color: #7FFFD4; background: #7B68EE; border-radius: 7px;">&gt;</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>

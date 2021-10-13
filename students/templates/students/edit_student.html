@@ -7,10 +7,10 @@
 {% block content %}
     <i><h1 align="center">Edit {{Title}} </h1></i>
     {% for message in messages %}
-    {{ message }}
+    <p align="center">{{ message }}</p>
     {% endfor %}
     <div class="rounded-circle">
-        <form method="POST", action="{% url 'edit_student' student_id %}" align="center">
+        <form method="POST", action="{% url 'edit_student' object.pk %}" align="center">
             {% csrf_token %}
             {{ form.name|safe }} <br>
             {{ form.surname|safe }} <br>
