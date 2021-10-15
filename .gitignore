@@ -4,3 +4,4 @@ myvenv
 celerybeat-schedule.db
 .DS_Store
 .env
+.coverage
