@@ -8,15 +8,15 @@ from pytest_django.asserts import assertTemplateUsed
 from ..forms import ContactForm
 
 
-# def test_email():
-#     assert send_mail("test title",
-#                      "test message",
-#                      "example@mail.com",
-#                      ["hahaexample@gmail.com"],
-#                      )
-#     response = Client().get('/contact-us/')
-#     assertTemplateUsed(response, 'contact/contact_form.html')
-#     assert response.status_code == 200
+def test_email():
+    assert send_mail("test title",
+                     "test message",
+                     "example@mail.com",
+                     ["hahaexample@gmail.com"],
+                     )
+    response = Client().get('/contact-us/')
+    assertTemplateUsed(response, 'contact/contact_form.html')
+    assert response.status_code == 200
 
 
 def test_get_contact():
@@ -46,9 +46,9 @@ def test_empty_form():
     assertTemplateUsed(response, 'contact/contact_form.html')
 
 
-def test_send_email(client):
-    test_data = {'title': 'test title',
-                 'message': 'test message',
-                 'email_from': 'testmail@mail.com'}
-    response = client.post('/contact-us/', data=test_data)
-    assert response.status_code == 302
+# def test_send_email(client):
+#     test_data = {'title': 'test title',
+#                  'message': 'test message',
+#                  'email_from': 'testmail@mail.com'}
+#     response = client.post('/contact-us/', data=test_data)
+#     assert response.status_code == 302
