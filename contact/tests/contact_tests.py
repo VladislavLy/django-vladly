@@ -1,11 +1,12 @@
 from django.core.mail import send_mail
-from django.test import Client
+from django.test import Client, override_settings # noqa
 
 import pytest
 
 from pytest_django.asserts import assertTemplateUsed
 
 from ..forms import ContactForm
+# from ..tasks import send_email_contact
 
 
 def test_email():
@@ -46,9 +47,16 @@ def test_empty_form():
     assertTemplateUsed(response, 'contact/contact_form.html')
 
 
+# @override_settings(CELERY_ALWAYS_EAGER=True)
 # def test_send_email(client):
 #     test_data = {'title': 'test title',
 #                  'message': 'test message',
 #                  'email_from': 'testmail@mail.com'}
 #     response = client.post('/contact-us/', data=test_data)
 #     assert response.status_code == 302
+#     the_task = send_email_contact.delay(title=test_data.get('title'),
+#                                         email_from=test_data.get('message'),
+#                                         message=test_data.get('email_from'),
+#                                         )
+#     print(the_task.result)
+    # assert task.successful()

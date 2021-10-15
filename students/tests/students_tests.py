@@ -19,15 +19,6 @@ from ..tasks import delete_logs
 def test_user_create():
     User.objects.create_user('Johny', 'abc@mail.com', 'passwordabc')
     assert User.objects.count() == 1
-# @pytest.fixture()
-# def resource_setup(request):
-#     Client().post("/create-student/", data={'id': 1,
-#                                             'name': 'Johny',
-#                                             'surname': 'D',
-#                                             'age': '29',
-#                                             'phone': 380991010101,
-#                                             })
-#     request.addfinalizer(resource_setup)
 
 
 @pytest.mark.urls('mysite.urls')
