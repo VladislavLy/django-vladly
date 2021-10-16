@@ -47,15 +47,15 @@ def test_empty_form():
     assertTemplateUsed(response, 'contact/contact_form.html')
 
 
-@override_settings(CELERY_ALWAYS_EAGER=True)
-def test_celery_email(client):
-    test_data = {'title': 'example title',
-                 'message': 'example message',
-                 'email_from': 'example@gmail.com'}
-    response = client.post('/contact-us/', data=test_data)
-    assert response.status_code == 302
-    the_task = send_email_contact.delay(title=test_data.get('title'),
-                                        email_from=test_data.get('message'),
-                                        message=test_data.get('email_from'),
-                                        )
-    assert bool(the_task.id)
+# @override_settings(CELERY_ALWAYS_EAGER=True)
+# def test_celery_email(client):
+#     test_data = {'title': 'example title',
+#                  'message': 'example message',
+#                  'email_from': 'example@gmail.com'}
+#     response = client.post('/contact-us/', data=test_data)
+#     assert response.status_code == 302
+#     the_task = send_email_contact.delay(title=test_data.get('title'),
+#                                         email_from=test_data.get('message'),
+#                                         message=test_data.get('email_from'),
+#                                         )
+#     assert bool(the_task.id)
