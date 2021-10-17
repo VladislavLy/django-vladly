@@ -29,9 +29,9 @@ def test_main(client):
     assertTemplateUsed(response, 'students/wrapper.html')
 
 
-def test_an_admin_view(admin_client):
-    response = admin_client.get('/admin/')
-    assert response.status_code == 200
+# def test_an_admin_view(admin_client):
+#     response = admin_client.get('/admin/')
+#     assert response.status_code == 200
 
 
 def test_error_404():
