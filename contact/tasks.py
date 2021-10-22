@@ -14,3 +14,4 @@ def send_email_contact(title, email_from, message):
         to=ADMIN_EMAIL
     )
     email.send()
+    return "Success"
