@@ -135,10 +135,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery
 from celery.schedules import crontab # noqa
+import os # noqa
 
 CELERY_TIMEZONE = 'UTC'
 CELERY_TASK_TRACK_STARTED = True
-CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
+CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL','pyamqp://guest@localhost//')
 # Crontab and Beat
 CELERY_BEAT_SCHEDULE = {
     'beat_logs': {
@@ -153,7 +154,7 @@ CELERY_BEAT_SCHEDULE = {
 
 # Settings for contact-email
 from dotenv import load_dotenv # noqa
-import os # noqa
+# import os # noqa
 
 load_dotenv()
 
