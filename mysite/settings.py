@@ -135,10 +135,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery
 from celery.schedules import crontab # noqa
+import os # noqa
 
 CELERY_TIMEZONE = 'UTC'
 CELERY_TASK_TRACK_STARTED = True
-CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
+CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', 'pyamqp://guest@localhost//')
 # Crontab and Beat
 CELERY_BEAT_SCHEDULE = {
     'beat_logs': {
@@ -153,7 +154,7 @@ CELERY_BEAT_SCHEDULE = {
 
 # Settings for contact-email
 from dotenv import load_dotenv # noqa
-import os # noqa
+# import os # noqa
 
 load_dotenv()
 
@@ -167,10 +168,10 @@ EMAIL_USE_TLS = True
 SECRET_KEY = os.environ.get("SECRET_KEY", 'TEST')
 CSRF_COOKIE_SECURE = True
 
-# import dj_database_url # noqa
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
+import dj_database_url # noqa
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
