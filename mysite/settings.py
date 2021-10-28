@@ -139,7 +139,7 @@ import os # noqa
 
 CELERY_TIMEZONE = 'UTC'
 CELERY_TASK_TRACK_STARTED = True
-CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL','pyamqp://guest@localhost//')
+CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', 'pyamqp://guest@localhost//')
 # Crontab and Beat
 CELERY_BEAT_SCHEDULE = {
     'beat_logs': {
