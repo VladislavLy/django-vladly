@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('teachers.urls')),
     path('', include('contact.urls')),
     path('', include('currency.urls')),
+    path('', include('user_signup.urls')),
 ]
 
 handler404 = 'students.views.handler404'

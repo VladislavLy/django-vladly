@@ -1,0 +1,23 @@
+{% extends "students/wrapper.html" %}
+
+{% block title %} 
+Register
+{% endblock %}
+
+{% block content %}
+<h1 align="center">Register</h1>
+<u><h5 align="center">Please, use the following form to register yourself:</h5></u>
+<div class="rounded-circle">
+    <form action="{% url 'register' %}" method="POST" align="center" novalidate>
+        {% csrf_token %}
+        {% for i in form %}
+        <p>{{ i|safe }}</p>
+        {% endfor %}
+        <br>
+        {% for e in form %}
+        <strong style="color: rgb(236, 16, 16)">{{ e.errors }}</strong>
+        {% endfor %}
+        <button type="submit" style="height: 30px; width: 70px"> Register</button>
+    </form>
+</div>
+{% endblock %}
