@@ -63,14 +63,14 @@ def test_generate_students_count():
 
 
 @pytest.mark.django_db
-def test_list_of_students():
-    x = Client().post("/create-student/", data={'name': 'Johny',
-                                                'surname': 'D',
-                                                'age': '29',
-                                                'phone': 380991010101,
-                                                })
+def test_list_of_students(admin_client):
+    x = admin_client.post("/create-student/", data={'name': 'Johny',
+                                                    'surname': 'D',
+                                                    'age': '29',
+                                                    'phone': 380991010101,
+                                                    })
     assert x.status_code == 302
-    response = Client().get('/list-of-students/')
+    response = admin_client.get('/list-of-students/')
     assert response.status_code == 200
     assert Student.objects.count() == 1
     assertTemplateUsed(response, 'students/students.html')
@@ -78,28 +78,28 @@ def test_list_of_students():
 
 
 @pytest.mark.django_db
-def test_create_student():
-    x = Client().post("/create-student/", data={'name': 'Johny',
-                                                'surname': 'D',
-                                                'age': '29',
-                                                'phone': 380991010101,
-                                                })
+def test_create_student(admin_client):
+    x = admin_client.post("/create-student/", data={'name': 'Johny',
+                                                    'surname': 'D',
+                                                    'age': '29',
+                                                    'phone': 380991010101,
+                                                    })
     assert x.status_code == 302
     assert Student.objects.count() == 1
     assert Student.objects.get(pk=1).name == 'Johny'
     assert Student.objects.get(pk=1).surname == 'D'
-    response = Client().get('/create-student/')
+    response = admin_client.get('/create-student/')
     assertTemplateUsed(response, 'students/create_student.html')
 
 
 @pytest.mark.django_db
-def test_delete_student():
-    x = Client().post("/create-student/", data={'id': 1,
-                                                'name': 'Johny',
-                                                'surname': 'D',
-                                                'age': '29',
-                                                'phone': 380991010101,
-                                                })
+def test_delete_student(admin_client):
+    x = admin_client.post("/create-student/", data={'id': 1,
+                                                    'name': 'Johny',
+                                                    'surname': 'D',
+                                                    'age': '29',
+                                                    'phone': 380991010101,
+                                                    })
     assert Student.objects.count() == 1
     student = Student.objects.last()
     student.delete()
@@ -108,16 +108,16 @@ def test_delete_student():
 
 
 @pytest.mark.django_db
-def test_post_edit_student():
-    Client().get("/generate-student/")
+def test_post_edit_student(admin_client):
+    admin_client.get("/generate-student/")
     assert Student.objects.count() == 1
 
-    x = Client().post("/edit-student/1/", data={'id': 1,
-                                                'name': 'Johny',
-                                                'surname': 'D',
-                                                'age': '29',
-                                                'phone': 380991010101,
-                                                })
+    x = admin_client.post("/edit-student/1/", data={'id': 1,
+                                                    'name': 'Johny',
+                                                    'surname': 'D',
+                                                    'age': '29',
+                                                    'phone': 380991010101,
+                                                    })
     assert model_to_dict(Student.objects.get(id=1)) == {'id': 1,
                                                         'name': 'Johny',
                                                         'surname': 'D',
@@ -127,28 +127,28 @@ def test_post_edit_student():
                                                         }
     assert 'Johny' in Student.objects.last().__str__()
     assert x.status_code == 302
-    response = Client().get('/edit-student/1/')
+    response = admin_client.get('/edit-student/1/')
     assertTemplateUsed(response, 'students/edit_student.html')
 
 
 @pytest.mark.django_db
-def test_phone():
-    x = Client().post("/create-student/", data={'id': 1,
-                                                'name': 'Johny',
-                                                'surname': 'D',
-                                                'age': '29',
-                                                'phone': '+380(99)1010101aaa'
-                                                })
+def test_phone(admin_client):
+    x = admin_client.post("/create-student/", data={'id': 1,
+                                                    'name': 'Johny',
+                                                    'surname': 'D',
+                                                    'age': '29',
+                                                    'phone': '+380(99)1010101aaa'
+                                                    })
     a = Student.objects.last()
     assert a is None
     assert x.status_code == 200
-    response = Client().get('/create-student/')
+    response = admin_client.get('/create-student/')
     assertTemplateUsed(response, 'students/create_student.html')
 
 
 @pytest.mark.django_db
-def test_capitalize_student():
-    c = Client()
+def test_capitalize_student(admin_client):
+    c = admin_client
     x = c.post("/create-student/", data={'name': 'johny',
                                          'surname': 'd',
                                          'age': '29',
@@ -157,7 +157,7 @@ def test_capitalize_student():
     assert Student.objects.get(id=1).name == "Johny"
     assert Student.objects.get(id=1).surname == "D"
     assert x.status_code == 302
-    response = Client().get('/create-student/')
+    response = admin_client.get('/create-student/')
     assertTemplateUsed(response, 'students/create_student.html')
 
 
@@ -181,17 +181,17 @@ def test_students_form():
 
 
 @pytest.mark.django_db
-def test_list_of_students_querry():
-    x = Client().post("/create-student/", data={'name': 'Johny',
-                                                'surname': 'D',
-                                                'age': '31',
-                                                'phone': 380991010101,
-                                                })
+def test_list_of_students_querry(admin_client):
+    x = admin_client.post("/create-student/", data={'name': 'Johny',
+                                                    'surname': 'D',
+                                                    'age': '31',
+                                                    'phone': 380991010101,
+                                                    })
     assert x.status_code == 302
-    response_1 = Client().get('/list-of-students/?age=31')
-    response_2 = Client().get('/list-of-students/?name=Johny')
+    response_1 = admin_client.get('/list-of-students/?age=31')
+    response_2 = admin_client.get('/list-of-students/?name=Johny')
     assert response_1.status_code == 200
     assert response_2.status_code == 200
     assert Student.objects.count() == 1
-    response = Client().get('/list-of-students/')
+    response = admin_client.get('/list-of-students/')
     assertTemplateUsed(response, 'students/students.html')
