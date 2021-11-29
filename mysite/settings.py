@@ -23,7 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+
+# DEBUG = True
+
+import os # noqa
+DEBUG = bool(os.getenv('DJANGO_DEBUG'))
+if DEBUG:
+    # development ONLY!
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -42,7 +52,8 @@ INSTALLED_APPS = [
     'groups',
     'contact',
     'currency',
-    'django_extensions'
+    'django_extensions',
+    'user_signup',
 ]
 
 MIDDLEWARE = [

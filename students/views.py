@@ -1,5 +1,6 @@
 import random
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -256,7 +257,8 @@ class ListOfStudents(ListView):
         return queryset
 
 
-class CreateStudent(CreateView):
+class CreateStudent(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Student
     template_name = 'students/create_student.html'
     form_class = StudentForm
@@ -290,7 +292,8 @@ class CreateStudent(CreateView):
         return render(request, 'students/create_student.html', {'Title': 'Student', 'form': our_form})
 
 
-class EditStudent(UpdateView):
+class EditStudent(LoginRequiredMixin, UpdateView):
+    login_url = 'login'
     model = Student
     form_class = StudentForm
     template_name = 'students/edit_student.html'
@@ -322,7 +325,8 @@ class EditStudent(UpdateView):
         return render(request, 'students/edit_student.html', {'Title': 'Student', 'form': our_form, 'object': the_object})
 
 
-class DeleteStudent(DeleteView):
+class DeleteStudent(LoginRequiredMixin, DeleteView):
+    login_url = 'login'
     model = Student
     success_url = reverse_lazy('list_of_students')
     template_name = 'students/students.html'

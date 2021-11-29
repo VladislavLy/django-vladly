@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import HttpResponse, redirect, render
 
 from faker import Faker
@@ -163,7 +164,8 @@ class ListOfTeachers(ListView):
         return queryset
 
 
-class CreateTeacher(CreateView):
+class CreateTeacher(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Teacher
     template_name = 'teachers/create_teacher.html'
     form_class = TeacherForm
@@ -178,7 +180,8 @@ class CreateTeacher(CreateView):
         return redirect('list_of_teachers')
 
 
-class EditTeacher(UpdateView):
+class EditTeacher(LoginRequiredMixin, UpdateView):
+    login_url = 'login'
     model = Teacher
     form_class = TeacherForm
     template_name = 'teachers/edit_teacher.html'
@@ -197,7 +200,8 @@ class EditTeacher(UpdateView):
             return redirect('list_of_teachers')
 
 
-class DeleteTeacher(DeleteView):
+class DeleteTeacher(LoginRequiredMixin, DeleteView):
+    login_url = 'login'
     model = Teacher
     success_url = reverse_lazy('list_of_teachers')
     template_name = 'teachers/teachers.html'

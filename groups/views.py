@@ -1,5 +1,6 @@
 from random import randrange
 
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -61,6 +62,7 @@ def list_of_groups(request):
     return render(request, 'groups/groups.html', {"Title": 'Groups', "object_list": groups_list, 'page_obj': page_obj})
 
 
+@login_required(login_url='login')
 def create_group(request):
     if request.method == 'GET':
         our_form = GroupForm()
@@ -74,6 +76,7 @@ def create_group(request):
     return render(request, 'groups/create_group.html', {"Title": 'Group', "form": our_form})
 
 
+@login_required(login_url='login')
 def edit_group(request, group_id):
     if request.method == 'GET':
         group = Group.objects.filter(id=group_id).first()
@@ -88,6 +91,7 @@ def edit_group(request, group_id):
     return render(request, 'groups/edit_group.html', {"form": form, 'group_id': group_id, 'Title': 'Group'})
 
 
+@login_required(login_url='login')
 def delete_group(request, group_id):
     teacher = Group.objects.filter(id=group_id)
     teacher.delete()

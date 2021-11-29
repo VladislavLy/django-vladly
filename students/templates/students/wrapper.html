@@ -52,6 +52,7 @@
 <body style="background-color: chocolate">
     <nav class="navbar navbar-default" >
     <ul class="block_navigation">
+        <strong>{{user.username}}🚀</strong>
         <ol><b><em><a href="{% url 'index' %}"> Home ✔</a></em></b></ol>
         <ol><b><em><a href="{% url 'create_teacher' %}"> Create teacher ✔</a></em></b></ol>
         <ol><b><em><a href="{% url 'create_student' %}"> Create student ✔</a></em></b></ol>
@@ -65,7 +66,22 @@
     </nav>
     {% block content %}
     <div class="rounded-circle">
-        <i><h1 align="center"> Nice to see you! </h1></i>
+        <i><h1 align="center"> Nice to see you! </h1></i> <br>
+        {% if request.user.is_authenticated %}
+            <u><i><h2 align="center" style="color: rgb(36, 36, 36)">{{user.username}} 🚀</h2></i></u>
+            <u><i><h3 align="center"><a href="{% url 'logout' %}"> Logout </a></h3></i></u>
+            <u><i><h3 align="center"><a href="{% url 'password_change' %}"> Change password </a></h3></i></u>
+            <u><i><h3 align="center"><a href="{% url 'reset_password' %}"> Reset password </a></h3></i></u>
+            <br>
+        {% else %}
+            <u><i><h3 align="center"><a href="{% url 'login' %}"> Login </a></h3></i></u>
+            <u><i><h3 align="center"><a href="{% url 'register' %}"> Register </a></h3></i></u>
+            <u><i><h3 align="center"><a href="{% url 'reset_password' %}"> Reset password </a></h3></i></u>
+            <br>
+        {% endif %}
+        {% for m in messages %}
+        <u><i><h5 align="center" style="color: rgb(36, 36, 36)">{{m}}</h5></i></u>
+        {% endfor %}
     </div>
     {% endblock %}
 </body>
